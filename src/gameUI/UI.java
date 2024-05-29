@@ -58,7 +58,7 @@ public class UI implements ActionListener {
 
 		// Main frame
 		frame = new JFrame();
-		frame.setSize(1280, 720);
+		frame.setSize(800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.getContentPane().setBackground(Color.black);
@@ -96,7 +96,7 @@ public class UI implements ActionListener {
 		// MASTER PANEL FOR THE PLAYER MAP AND INFO TO GO ON THE BOTTOM
 		masterPlayerPanel = new JPanel();
 		masterPlayerPanel.setLayout(new BoxLayout(masterPlayerPanel, BoxLayout.X_AXIS));
-		masterPlayerPanel.setBounds(10, 515, 1245, 160);
+		masterPlayerPanel.setBounds(5, 425, 775, 130);
 		masterPlayerPanel.setBackground(Color.black);
 		masterPlayerPanel.setVisible(false);
 		frame.add(masterPlayerPanel);
@@ -218,7 +218,7 @@ public class UI implements ActionListener {
 
 		mainGraphicsPane = new JLayeredPane();
 		mainGraphicsPane.setLayout(null);
-		mainGraphicsPane.setBounds(10, 10, 1245, 495);
+		mainGraphicsPane.setBounds(5, 1, 775, 420);
 		mainGraphicsPane.setBackground(Color.black);
 		mainGraphicsPane.setBorder(BorderFactory.createLineBorder(Color.white));
 		mainGraphicsPane.setVisible(false);
@@ -229,7 +229,7 @@ public class UI implements ActionListener {
 
 
 		gameOutputTextPanel = new JPanel();
-		gameOutputTextPanel.setPreferredSize(new Dimension(237, 130)); // reduced size to accommodate space for mappanel
+		gameOutputTextPanel.setPreferredSize(new Dimension(237, 100)); // reduced size to accommodate space for mappanel
 		gameOutputTextPanel.setBackground(Color.black);
 		gameOutputTextPanel.setBorder(whiteline);
 		gameOutputTextPanel.setLayout(null);
@@ -249,7 +249,7 @@ public class UI implements ActionListener {
 		// Initialize JScrollPane and add JTextArea to it
 		scrollPane = new JScrollPane(gameTextOutputArea);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); // Always show vertical scroll bar
-		scrollPane.setBounds(5, 5, 475, 150); // Adjust bounds as needed
+		scrollPane.setBounds(5, 5, 320, 120); // Adjust bounds as needed
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
 
 		gameTextField = new JTextField();
