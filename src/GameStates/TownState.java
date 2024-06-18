@@ -20,6 +20,7 @@ public class TownState extends GameState{
     public void update() {
     	System.out.println(GameState.getGameStateStack() + " GAME STATE STACK INSIDE TOWN STATE*");
         System.out.println(getGameStateStack().peek()+" inside townstate*");
+
         
 
     }
@@ -27,6 +28,10 @@ public class TownState extends GameState{
     @Override
     public void ui() {
         // Update the player's game screen and UI
+        ui.button1.addActionListener(game.shopKeeperHandler);
+        ui.button1.setActionCommand("ShopKeeperButton");
+        ui.button1.setText("Tavern");
+        //ui.buttonPanel.add(game.shopKeeperHandler.GetShopKeeperFromIndex(0).shopKeeperButton);
     	ui.RemoveInfoPanelAddOutputTextPanel();
     	ui.updateGameTextOutputArea("Welcome to " + player.getCurrentState().getName());
     	//ui.shopKeeperPanel.setVisible(false);

@@ -10,7 +10,7 @@ import main.Player;
 import javax.swing.*;
 import java.awt.*;
 
-public class TavernShopKeeperObject extends SuperShopKeeperObject {
+public class TavernShopKeeper extends SuperShopKeeper {
 
 	private Item_Hp_Potion potion = new Item_Hp_Potion();
 	private Weapon_Dagger dagger = new Weapon_Dagger();
@@ -18,7 +18,7 @@ public class TavernShopKeeperObject extends SuperShopKeeperObject {
 	
 	
 	
-	public TavernShopKeeperObject(Game game, Player player, UI ui) {
+	public TavernShopKeeper(Game game, Player player, UI ui) {
         super(game,player,ui);
 
         setShopKeeperName("tavernShop");

@@ -7,7 +7,7 @@ import main.Player;
 
 import javax.swing.*;
 
-public class SuperShopKeeperObject {
+public class SuperShopKeeper {
     private SuperItem[] shopItems = new SuperItem[5];
     public JButton shopKeeperButton;
     private String shopKeeperName;
@@ -16,7 +16,7 @@ public class SuperShopKeeperObject {
     protected UI ui;
     protected Game game;
 
-    public SuperShopKeeperObject(Game game, Player player, UI ui) {
+    public SuperShopKeeper(Game game, Player player, UI ui) {
         this.game = game;
         this.player = player;
         this.ui = ui;

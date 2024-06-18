@@ -48,6 +48,8 @@ public class TavernState extends GameState implements ActionListener {
 		invoUI.inventoryPanel.setVisible(true);
 		invoUI.refreshInventoryButtons();
 
+		ui.button1.removeActionListener(game.shopKeeperHandler);
+
 		ui.button4.setVisible(true);
 		ui.button4.setText("Exit");
 		ui.button4.setActionCommand("closeTavern");

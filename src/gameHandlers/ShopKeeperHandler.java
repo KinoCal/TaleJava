@@ -2,8 +2,8 @@ package gameHandlers;
 
 import gameItems.SuperConsumable;
 import gameItems.SuperItem;
-import gameNPC.SuperShopKeeperObject;
-import gameNPC.TavernShopKeeperObject;
+import gameNPC.SuperShopKeeper;
+import gameNPC.TavernShopKeeper;
 import gameUI.InventoryUI;
 import gameUI.ShopKeeperUI;
 import gameUI.UI;
@@ -22,7 +22,7 @@ public class ShopKeeperHandler implements ActionListener {
     private UI ui;
     private InventoryUI invoUI;
     private ShopKeeperUI shopKeeperUI;
-    private ArrayList<TavernShopKeeperObject> shopKeeperObjects = new ArrayList<>();
+    private ArrayList<SuperShopKeeper> shopKeepers = new ArrayList<>();
 
 
     public ShopKeeperHandler(Game game, Player player, UI ui,InventoryUI invoUI, ShopKeeperUI shopKeeperUI){
@@ -33,28 +33,26 @@ public class ShopKeeperHandler implements ActionListener {
         this.shopKeeperUI = shopKeeperUI;
 
 
-        TavernShopKeeperObject tavernShopKeeperObject = new TavernShopKeeperObject(game,player,ui);
-        tavernShopKeeperObject.shopKeeperButton.addActionListener(this);
-        tavernShopKeeperObject.shopKeeperButton.setActionCommand("ShopKeeperButton");
-        AddShopKeeperToArray(tavernShopKeeperObject);
+        SuperShopKeeper tavernShopKeeper = new TavernShopKeeper(game,player,ui);
+        AddShopKeeperToArray(tavernShopKeeper);
 
         shopKeeperUI.buyItemButton.addActionListener(this);
         shopKeeperUI.shopButtons[0].addActionListener(this);
         shopKeeperUI.shopButtons[1].addActionListener(this);
         shopKeeperUI.closeItemButton.addActionListener(this);
-        shopKeeperUI.shopButtons[0].setText("Item1:" + tavernShopKeeperObject.getShopItems(0).getName());
-        shopKeeperUI.shopButtons[1].setText("Item2:" + tavernShopKeeperObject.getShopItems(1).getName());
+        shopKeeperUI.shopButtons[0].setText("Item1:" + tavernShopKeeper.getShopItems(0).getName());
+        shopKeeperUI.shopButtons[1].setText("Item2:" + tavernShopKeeper.getShopItems(1).getName());
 
 
     }
 
-    public void AddShopKeeperToArray(TavernShopKeeperObject shopKeeperObject){
-        shopKeeperObjects.add(shopKeeperObject);
+    public void AddShopKeeperToArray(SuperShopKeeper shopKeeperObject){
+        shopKeepers.add(shopKeeperObject);
 
     }
 
-    public SuperShopKeeperObject GetShopKeeperFromIndex(int i){
-        return shopKeeperObjects.get(i);
+    public SuperShopKeeper GetShopKeeperFromIndex(int i){
+        return shopKeepers.get(i);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ShopKeeperHandler implements ActionListener {
 
         switch (yourChoice) {
             case"ShopKeeperButton":
-                shopKeeperObjects.get(0).shopKeeperButton.removeActionListener(this);
+                shopKeepers.get(0).shopKeeperButton.removeActionListener(this);
                 System.out.println("ShopKeeperButton is pressed");
                 pushStateAndSetCurrent(game.tavernState, player);
 
@@ -75,12 +73,12 @@ public class ShopKeeperHandler implements ActionListener {
 
             System.out.println("shop button 0 pressed");
 
-            for (int i = 0; i < shopKeeperObjects.size(); i++) {
+            for (int i = 0; i < shopKeepers.size(); i++) {
 
-                if(shopKeeperObjects.get(i).getShopKeeperName().equals(player.getShopLocation())) {
+                if(shopKeepers.get(i).getShopKeeperName().equals(player.getShopLocation())) {
                     System.out.println("inside");
-                    if(shopKeeperObjects.get(i).getShopItems(0).getType().equals("Consumable")) {
-                        SuperConsumable consumableItem = (SuperConsumable) shopKeeperObjects.get(i).getShopItems(0);
+                    if(shopKeepers.get(i).getShopItems(0).getType().equals("Consumable")) {
+                        SuperConsumable consumableItem = (SuperConsumable) shopKeepers.get(i).getShopItems(0);
                         shopKeeperUI.itemLabel.setText("Item: " + consumableItem.getName());
                         shopKeeperUI.itemShopPriceLabel.setText("Price: " + consumableItem.getPrice());
                         shopKeeperUI.itemHealingValue.setText("Heals: " + consumableItem.getHealingValue());
@@ -99,8 +97,8 @@ public class ShopKeeperHandler implements ActionListener {
                         System.out.println("shop item index" + player.getShopItemIndex());
 
                     }
-                    else if (shopKeeperObjects.get(i).getShopItems(0).getType().equals("Equipment")) {
-                        SuperItem superItem = shopKeeperObjects.get(i).getShopItems(0);
+                    else if (shopKeepers.get(i).getShopItems(0).getType().equals("Equipment")) {
+                        SuperItem superItem = shopKeepers.get(i).getShopItems(0);
                         shopKeeperUI.itemLabel.setText("Item: " + superItem.getName());
                         shopKeeperUI.itemShopPriceLabel.setText("Price: " + superItem.getPrice());
                         if(superItem.getItemIndex() == 0) {
@@ -135,12 +133,12 @@ public class ShopKeeperHandler implements ActionListener {
                 ui.RemoveOutputTextPanelAddInfoPanel();
 
                 System.out.println("shop button 1 pressed");
-                for (int i = 0; i < shopKeeperObjects.size(); i++) {
+                for (int i = 0; i < shopKeepers.size(); i++) {
 
-                    if(shopKeeperObjects.get(i).getShopKeeperName().equals(player.getShopLocation())) {
+                    if(shopKeepers.get(i).getShopKeeperName().equals(player.getShopLocation())) {
 
-                        if(shopKeeperObjects.get(i).getShopItems(1).getType().equals("Consumable")) {
-                            SuperConsumable consumableItem = (SuperConsumable) shopKeeperObjects.get(i).getShopItems(1);
+                        if(shopKeepers.get(i).getShopItems(1).getType().equals("Consumable")) {
+                            SuperConsumable consumableItem = (SuperConsumable) shopKeepers.get(i).getShopItems(1);
                             shopKeeperUI.itemLabel.setText("Item: " + consumableItem.getName());
                             shopKeeperUI.itemShopPriceLabel.setText("Price: " + consumableItem.getPrice());
                             shopKeeperUI.itemHealingValue.setText("Heals: " + consumableItem.getHealingValue());
@@ -159,8 +157,8 @@ public class ShopKeeperHandler implements ActionListener {
                             System.out.println("shop item index" + player.getShopItemIndex());
 
                         }
-                        else if (shopKeeperObjects.get(i).getShopItems(1).getType().equals("Equipment")) {
-                            SuperItem superItem = shopKeeperObjects.get(i).getShopItems(1);
+                        else if (shopKeepers.get(i).getShopItems(1).getType().equals("Equipment")) {
+                            SuperItem superItem = shopKeepers.get(i).getShopItems(1);
                             shopKeeperUI.itemLabel.setText("Item: " + superItem.getName());
                             shopKeeperUI.itemShopPriceLabel.setText("Price: " + superItem.getPrice());
                             if(superItem.getItemIndex() == 0) {
@@ -199,20 +197,20 @@ public class ShopKeeperHandler implements ActionListener {
                 InventoryManager inventoryManager = new InventoryManager();
                 //check if player inventory is full
 
-                for (int i = 0; i < shopKeeperObjects.size(); i++) {
-                    if (shopKeeperObjects.get(i).getShopKeeperName().equals(player.getShopLocation())) {
-                        if (inventoryManager.BuyItem(player, shopKeeperObjects.get(i).getShopItems(player.getShopItemIndex()))) {
+                for (int i = 0; i < shopKeepers.size(); i++) {
+                    if (shopKeepers.get(i).getShopKeeperName().equals(player.getShopLocation())) {
+                        if (inventoryManager.BuyItem(player, shopKeepers.get(i).getShopItems(player.getShopItemIndex()))) {
                             System.out.println("attempting to sell player item..");
 
                             ui.goldLabel.setText(" Gold: " + player.getGold());
                             ui.hpPotLabel.setText(" Hp Pots: " + player.getHpPotionArray().size());
                             ui.mpPotLabel.setText(" Mp Pots: " + player.getMpPotionArray().size());
-                            System.out.println("-" + shopKeeperObjects.get(i).getShopItems(player.getShopItemIndex()).getPrice() + "gold");
+                            System.out.println("-" + shopKeepers.get(i).getShopItems(player.getShopItemIndex()).getPrice() + "gold");
                             System.out.println(player.getGold());
 
                             invoUI.refreshInventoryButtons();//always!!
                             ui.RemoveInfoPanelAddOutputTextPanel();
-                            ui.updateGameTextOutputArea(shopKeeperObjects.get(i).SellMessage(shopKeeperObjects.get(i).getShopItems(player.getShopItemIndex())));
+                            ui.updateGameTextOutputArea(shopKeepers.get(i).SellMessage(shopKeepers.get(i).getShopItems(player.getShopItemIndex())));
 
                         } else {
                             ui.RemoveInfoPanelAddOutputTextPanel();
