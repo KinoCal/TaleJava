@@ -57,7 +57,7 @@ public class InventoryHandler implements ActionListener, MouseListener {
 		if (player.isInventoryIndexEmpty(index)) {
 			System.out.println("no item here sorry");
 		} else {
-			// Handle Consumable items
+			// Handle Consumable itemss
 			if (player.inventoryItems[index].getType().equals("Consumable")) {
 				ConsumableItem currentItem = (ConsumableItem) player.inventoryItems[index];
 				invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
