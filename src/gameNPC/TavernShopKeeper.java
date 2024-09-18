@@ -1,8 +1,5 @@
 package gameNPC;
 
-import gameEquipment.Weapon_Dagger;
-import gameItems.Item_Hp_Potion;
-import gameItems.Item_Mp_Potion;
 import gameUI.UI;
 import main.Game;
 import main.Player;

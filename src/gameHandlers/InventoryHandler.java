@@ -1,7 +1,7 @@
 package gameHandlers;
 
 import GameStates.GameState;
-import gameItems.SuperConsumable;
+import gameItems.conreteClasses.Consumables.ConsumableItem;
 import gameUI.InventoryUI;
 import gameUI.ShopKeeperUI;
 import gameUI.UI;
@@ -52,66 +52,61 @@ public class InventoryHandler implements ActionListener, MouseListener {
 
 	}
 
-	public void getInventoryItemAtIndex(int index){
-		SetInventoryUIBasedOnItemType(index);
-
-	}
-
-	private void SetInventoryUIBasedOnItemType(int index) {
-		if(player.isInventoryIndexEmpty(index)) {
+	public void getInventoryItemAtIndex(int index) {
+		// Check if inventory index is empty
+		if (player.isInventoryIndexEmpty(index)) {
 			System.out.println("no item here sorry");
-		}
-		else if(player.inventoryItems[index].getType().equals("Consumable")) {
-			SetUIForConsumableItem(index);
-			isShopOpenSetUI("Use:", "useItem");
-			player.setPlayerItemIndex(index);
+		} else {
+			// Handle Consumable items
+			if (player.inventoryItems[index].getType().equals("Consumable")) {
+				ConsumableItem currentItem = (ConsumableItem) player.inventoryItems[index];
+				invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
+				invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
+				invoUI.itemHealingValue.setText("Heals:" + currentItem.getHealingValue());
 
-			System.out.println("Player selected inventory index: " + player.getPlayerItemIndex());
-		}
-		else if (player.inventoryItems[index].getType().equals("Equipment")) {
-			SetUIForEquipmentItem(index);
-			isShopOpenSetUI("Equip:", "equipItem");
-			player.setPlayerItemIndex(index);
-			player.setPlayerEquipmentIndex(player.inventoryItems[index].getItemIndex());
+				invoUI.equipmentDamageOrArmorValue.setVisible(false);
+				invoUI.itemHealingValue.setVisible(true);
+				invoUI.itemPriceLabel.setVisible(true);
+				invoUI.itemLabel.setVisible(true);
+				invoUI.useItemButton.setVisible(true);
+				invoUI.closeItemButton.setVisible(true);
+				ui.RemoveOutputTextPanelAddInfoPanel();
 
-			System.out.println("Player selected inventory index: " + player.getPlayerItemIndex());
-			System.out.println("Selected item equipment index: " + player.getPlayerEquipmentIndex());
+				isShopOpenSetUI("Use:", "useItem");
+				player.setPlayerItemIndex(index);
+
+				System.out.println("Player selected inventory index: " + player.getPlayerItemIndex());
+			}
+			// Handle Equipment items
+			else if (player.inventoryItems[index].getType().equals("Equipment")) {
+				invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
+				invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
+
+				// Display damage or armor based on item index
+				if (player.inventoryItems[index].getItemIndex() == 0) {
+					invoUI.equipmentDamageOrArmorValue.setText("Damage:" + player.inventoryItems[index].getDamageValue());
+				} else if (player.inventoryItems[index].getItemIndex() == 1) {
+					invoUI.equipmentDamageOrArmorValue.setText("Armor:" + player.inventoryItems[index].getArmorValue());
+				}
+
+				invoUI.equipmentDamageOrArmorValue.setVisible(true);
+				invoUI.itemPriceLabel.setVisible(true);
+				invoUI.itemLabel.setVisible(true);
+				invoUI.itemHealingValue.setVisible(false);
+				invoUI.useItemButton.setVisible(true);
+				invoUI.closeItemButton.setVisible(true);
+				ui.RemoveOutputTextPanelAddInfoPanel();
+
+				isShopOpenSetUI("Equip:", "equipItem");
+				player.setPlayerItemIndex(index);
+				player.setPlayerEquipmentIndex(player.inventoryItems[index].getItemIndex());
+
+				System.out.println("Player selected inventory index: " + player.getPlayerItemIndex());
+				System.out.println("Selected item equipment index: " + player.getPlayerEquipmentIndex());
+			}
 		}
+
 		shopKeeperUI.CloseShopItemInfoUI();
-	}
-
-	private void SetUIForEquipmentItem(int index) {
-		invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
-		invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
-		if(player.inventoryItems[index].getItemIndex() == 0) {
-			invoUI.equipmentDamageOrArmorValue.setText("Damage:" + player.inventoryItems[index].getDamageValue());
-		}
-		else if(player.inventoryItems[index].getItemIndex() == 1) {
-			invoUI.equipmentDamageOrArmorValue.setText("Armor:" + player.inventoryItems[index].getArmorValue());
-
-		}
-		invoUI.equipmentDamageOrArmorValue.setVisible(true);
-		invoUI.itemPriceLabel.setVisible(true);
-		invoUI.itemLabel.setVisible(true);
-		invoUI.itemHealingValue.setVisible(false);
-		invoUI.useItemButton.setVisible(true);
-		invoUI.closeItemButton.setVisible(true);
-		ui.RemoveOutputTextPanelAddInfoPanel();
-		//ui.CloseItemUi();
-	}
-
-	private void SetUIForConsumableItem(int index) {
-		invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
-		invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
-		invoUI.itemHealingValue.setText("Heals:" + player.inventoryItems[index].getHealingValue());
-		invoUI.equipmentDamageOrArmorValue.setVisible(false);
-		invoUI.itemHealingValue.setVisible(true);
-		invoUI.itemPriceLabel.setVisible(true);
-		invoUI.itemLabel.setVisible(true);
-		invoUI.useItemButton.setVisible(true);
-		invoUI.closeItemButton.setVisible(true);
-		ui.RemoveOutputTextPanelAddInfoPanel();
-		//ui.CloseItemUi();
 	}
 
 	private void isShopOpenSetUI(String useItemButton, String actionCommand) {

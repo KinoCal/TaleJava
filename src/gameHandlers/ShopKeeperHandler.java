@@ -1,7 +1,5 @@
 package gameHandlers;
 
-import gameItems.SuperConsumable;
-import gameItems.SuperItem;
 import gameNPC.SuperShopKeeper;
 import gameNPC.TavernShopKeeper;
 import gameUI.InventoryUI;

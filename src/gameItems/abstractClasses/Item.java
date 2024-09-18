@@ -1,23 +1,20 @@
 package gameItems.abstractClasses;
 
-import gameItems.interfaces.Item;
+public abstract class Item implements gameItems.interfaces.Item {
 
-public abstract class AbstractItem implements Item {
-
-    private int itemIndex;
     private String name;
     private String type;
     private int price;
 
-    public AbstractItem(){
-
+    public Item(String name, String type, int price){
+        this.name = name;
+        this.type = type;
+        this.price = price;
+    }
+    public Item(){
 
     }
 
-    @Override
-    public int getItemIndex() {
-        return itemIndex;
-    }
 
     @Override
     public String getName() {
@@ -32,10 +29,6 @@ public abstract class AbstractItem implements Item {
     @Override
     public int getPrice() {
         return price;
-    }
-
-    public void setItemIndex(int itemIndex) {
-        this.itemIndex = itemIndex;
     }
 
     public void setName(String name) {

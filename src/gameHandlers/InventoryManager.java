@@ -1,13 +1,12 @@
 package gameHandlers;
 
 
-import gameItems.SuperConsumable;
-import gameItems.SuperItem;
+import gameItems.abstractClasses.Item;
 import main.Player;
 
 public class InventoryManager {
 
-	public void GivePlayerItem(Player player, SuperItem item) {
+	public void GivePlayerItem(Player player, Item item) {
 		
 		int slotNumber = 0;
 		while(player.inventoryItems[slotNumber] != player.empty && slotNumber <4) {
@@ -22,7 +21,7 @@ public class InventoryManager {
 		}
 	}
 	
-	public boolean BuyItem(Player player, SuperItem item) {
+	public boolean BuyItem(Player player, Item item) {
 		
 		int slotNumber = 0;
 		boolean itemSold = false;
