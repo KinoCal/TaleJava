@@ -1,5 +1,10 @@
 package gameHandlers;
 
+import Factories.ItemFactories.Factories;
+import gameItems.abstractClasses.Item;
+import gameItems.conreteClasses.Consumables.ConsumableItem;
+import gameItems.conreteClasses.equipment.ArmourItem;
+import gameItems.conreteClasses.equipment.WeaponItem;
 import gameNPC.SuperShopKeeper;
 import gameNPC.TavernShopKeeper;
 import gameUI.InventoryUI;
@@ -75,11 +80,11 @@ public class ShopKeeperHandler implements ActionListener {
 
                 if(shopKeepers.get(i).getShopKeeperName().equals(player.getShopLocation())) {
                     System.out.println("inside");
-                    if(shopKeepers.get(i).getShopItems(0).getType().equals("Consumable")) {
-                        SuperConsumable consumableItem = (SuperConsumable) shopKeepers.get(i).getShopItems(0);
-                        shopKeeperUI.itemLabel.setText("Item: " + consumableItem.getName());
-                        shopKeeperUI.itemShopPriceLabel.setText("Price: " + consumableItem.getPrice());
-                        shopKeeperUI.itemHealingValue.setText("Heals: " + consumableItem.getHealingValue());
+                    if(shopKeepers.get(i).getShopItems(0) instanceof ConsumableItem currentItem) {
+
+                        shopKeeperUI.itemLabel.setText("Item: " + currentItem.getName());
+                        shopKeeperUI.itemShopPriceLabel.setText("Price: " + currentItem.getPrice());
+                        shopKeeperUI.itemHealingValue.setText("Heals: " + currentItem.getHealingValue());
                         shopKeeperUI.itemHealingValue.setVisible(true);
                         shopKeeperUI.itemShopPriceLabel.setVisible(true);
                         shopKeeperUI.itemLabel.setVisible(true);
@@ -89,22 +94,26 @@ public class ShopKeeperHandler implements ActionListener {
                         shopKeeperUI.closeItemButton.setVisible(true);
                         shopKeeperUI.equipmentDamageOrArmorValue.setVisible(false);
                         invoUI.CloseInventoryUI();
-                        ui.RemoveOutputTextPanelAddInfoPanel();
+                        shopKeeperUI.RemoveInfoPanelAddShopKeeperItemInfoPanel();
+                        //ui.RemoveOutputTextPanelAddInfoPanel();
 
                         player.setShopItemIndex(0);
                         System.out.println("shop item index" + player.getShopItemIndex());
 
                     }
-                    else if (shopKeepers.get(i).getShopItems(0).getType().equals("Equipment")) {
-                        SuperItem superItem = shopKeepers.get(i).getShopItems(0);
-                        shopKeeperUI.itemLabel.setText("Item: " + superItem.getName());
-                        shopKeeperUI.itemShopPriceLabel.setText("Price: " + superItem.getPrice());
-                        if(superItem.getItemIndex() == 0) {
-                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Damage: " + superItem.getDamageValue());
-                        } else if(superItem.getItemIndex() == 1) {
-                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Armor: " + superItem.getArmorValue());
+                    else if (shopKeepers.get(i).getShopItems(0) instanceof WeaponItem currentItem) {
+
+                            shopKeeperUI.itemLabel.setText("Item: " + currentItem.getName());
+                            shopKeeperUI.itemShopPriceLabel.setText("Price: " + currentItem.getPrice());
+                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Damage: " + currentItem.getDamageValue());
+                        }
+                    else if(shopKeepers.get(i).getShopItems(0) instanceof ArmourItem currentItem) {
+                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Armor: " + currentItem.getArmorValue());
 
                         }
+
+
+
                         shopKeeperUI.itemShopPriceLabel.setVisible(true);
                         shopKeeperUI.itemLabel.setVisible(true);
                         shopKeeperUI.equipmentDamageOrArmorValue.setVisible(true);
@@ -114,16 +123,17 @@ public class ShopKeeperHandler implements ActionListener {
                         shopKeeperUI.closeItemButton.setVisible(true);
                         shopKeeperUI.itemHealingValue.setVisible(false);
                         invoUI.CloseInventoryUI();
-                        ui.RemoveOutputTextPanelAddInfoPanel();
+                        shopKeeperUI.RemoveInfoPanelAddShopKeeperItemInfoPanel();
+                        //ui.RemoveOutputTextPanelAddInfoPanel();
 
 
                         player.setShopItemIndex(0);
-                        player.setPlayerEquipmentIndex(superItem.getItemIndex());
+                        player.setPlayerEquipmentIndex(0);
                         System.out.println("shop item index" + player.getShopItemIndex());
 
                     }
                 }
-            }
+
 
             break;
 
@@ -134,12 +144,12 @@ public class ShopKeeperHandler implements ActionListener {
                 for (int i = 0; i < shopKeepers.size(); i++) {
 
                     if(shopKeepers.get(i).getShopKeeperName().equals(player.getShopLocation())) {
+                        System.out.println("inside");
+                        if(shopKeepers.get(i).getShopItems(1) instanceof ConsumableItem currentItem) {
 
-                        if(shopKeepers.get(i).getShopItems(1).getType().equals("Consumable")) {
-                            SuperConsumable consumableItem = (SuperConsumable) shopKeepers.get(i).getShopItems(1);
-                            shopKeeperUI.itemLabel.setText("Item: " + consumableItem.getName());
-                            shopKeeperUI.itemShopPriceLabel.setText("Price: " + consumableItem.getPrice());
-                            shopKeeperUI.itemHealingValue.setText("Heals: " + consumableItem.getHealingValue());
+                            shopKeeperUI.itemLabel.setText("Item: " + currentItem.getName());
+                            shopKeeperUI.itemShopPriceLabel.setText("Price: " + currentItem.getPrice());
+                            shopKeeperUI.itemHealingValue.setText("Heals: " + currentItem.getHealingValue());
                             shopKeeperUI.itemHealingValue.setVisible(true);
                             shopKeeperUI.itemShopPriceLabel.setVisible(true);
                             shopKeeperUI.itemLabel.setVisible(true);
@@ -149,39 +159,43 @@ public class ShopKeeperHandler implements ActionListener {
                             shopKeeperUI.closeItemButton.setVisible(true);
                             shopKeeperUI.equipmentDamageOrArmorValue.setVisible(false);
                             invoUI.CloseInventoryUI();
-                            ui.RemoveOutputTextPanelAddInfoPanel();
+                            shopKeeperUI.RemoveInfoPanelAddShopKeeperItemInfoPanel();
+                            //ui.RemoveOutputTextPanelAddInfoPanel();
 
-                            player.setShopItemIndex(1);
+                            player.setShopItemIndex(0);
                             System.out.println("shop item index" + player.getShopItemIndex());
 
                         }
-                        else if (shopKeepers.get(i).getShopItems(1).getType().equals("Equipment")) {
-                            SuperItem superItem = shopKeepers.get(i).getShopItems(1);
-                            shopKeeperUI.itemLabel.setText("Item: " + superItem.getName());
-                            shopKeeperUI.itemShopPriceLabel.setText("Price: " + superItem.getPrice());
-                            if(superItem.getItemIndex() == 0) {
-                                shopKeeperUI.equipmentDamageOrArmorValue.setText("Damage: " + superItem.getDamageValue());
-                            } else if(superItem.getItemIndex() == 1) {
-                                shopKeeperUI.equipmentDamageOrArmorValue.setText("Armor: " + superItem.getArmorValue());
+                        else if (shopKeepers.get(i).getShopItems(0) instanceof WeaponItem currentItem) {
 
-                            }
-                            shopKeeperUI.itemShopPriceLabel.setVisible(true);
-                            shopKeeperUI.itemLabel.setVisible(true);
-                            shopKeeperUI.equipmentDamageOrArmorValue.setVisible(true);
-                            shopKeeperUI.buyItemButton.setText("Buy:");
-                            shopKeeperUI.buyItemButton.setActionCommand("buyItem");
-                            shopKeeperUI.buyItemButton.setVisible(true);
-                            shopKeeperUI.closeItemButton.setVisible(true);
-                            shopKeeperUI.itemHealingValue.setVisible(false);
-                            invoUI.CloseInventoryUI();
-                            ui.RemoveOutputTextPanelAddInfoPanel();
-
-
-                            player.setShopItemIndex(1);
-                            player.setPlayerEquipmentIndex(superItem.getItemIndex());
-                            System.out.println("shop item index" + player.getShopItemIndex());
+                            shopKeeperUI.itemLabel.setText("Item: " + currentItem.getName());
+                            shopKeeperUI.itemShopPriceLabel.setText("Price: " + currentItem.getPrice());
+                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Damage: " + currentItem.getDamageValue());
+                        }
+                        else if(shopKeepers.get(i).getShopItems(0) instanceof ArmourItem currentItem) {
+                            shopKeeperUI.equipmentDamageOrArmorValue.setText("Armor: " + currentItem.getArmorValue());
 
                         }
+
+
+
+                        shopKeeperUI.itemShopPriceLabel.setVisible(true);
+                        shopKeeperUI.itemLabel.setVisible(true);
+                        shopKeeperUI.equipmentDamageOrArmorValue.setVisible(true);
+                        shopKeeperUI.buyItemButton.setText("Buy:");
+                        shopKeeperUI.buyItemButton.setActionCommand("buyItem");
+                        shopKeeperUI.buyItemButton.setVisible(true);
+                        shopKeeperUI.closeItemButton.setVisible(true);
+                        shopKeeperUI.itemHealingValue.setVisible(false);
+                        invoUI.CloseInventoryUI();
+                        shopKeeperUI.RemoveInfoPanelAddShopKeeperItemInfoPanel();
+                        //ui.RemoveOutputTextPanelAddInfoPanel();
+
+
+                        player.setShopItemIndex(1);
+                        player.setPlayerEquipmentIndex(1);
+                        System.out.println("shop item index" + player.getShopItemIndex());
+
                     }
                 }
                 break;
@@ -207,7 +221,8 @@ public class ShopKeeperHandler implements ActionListener {
                             System.out.println(player.getGold());
 
                             invoUI.refreshInventoryButtons();//always!!
-                            ui.RemoveInfoPanelAddOutputTextPanel();
+                            //ui.RemoveInfoPanelAddOutputTextPanel();
+                            shopKeeperUI.RemoveShopKeeperItemInfoPanelAddOutputTextPanel();
                             ui.updateGameTextOutputArea(shopKeepers.get(i).SellMessage(shopKeepers.get(i).getShopItems(player.getShopItemIndex())));
 
                         } else {
@@ -229,6 +244,7 @@ public class ShopKeeperHandler implements ActionListener {
             case "closeItem":
 
                 shopKeeperUI.CloseShopItemInfoUI();
+                shopKeeperUI.RemoveShopKeeperItemInfoPanelAddOutputTextPanel();
                 invoUI.CloseInventoryUI();
 
                 break;

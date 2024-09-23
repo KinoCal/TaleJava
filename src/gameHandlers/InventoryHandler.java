@@ -2,6 +2,8 @@ package gameHandlers;
 
 import GameStates.GameState;
 import gameItems.conreteClasses.Consumables.ConsumableItem;
+import gameItems.conreteClasses.equipment.ArmourItem;
+import gameItems.conreteClasses.equipment.WeaponItem;
 import gameUI.InventoryUI;
 import gameUI.ShopKeeperUI;
 import gameUI.UI;
@@ -57,9 +59,9 @@ public class InventoryHandler implements ActionListener, MouseListener {
 		if (player.isInventoryIndexEmpty(index)) {
 			System.out.println("no item here sorry");
 		} else {
-			// Handle Consumable itemss
-			if (player.inventoryItems[index].getType().equals("Consumable")) {
-				ConsumableItem currentItem = (ConsumableItem) player.inventoryItems[index];
+			// Handle Consumable items
+			if (player.inventoryItems[index] instanceof ConsumableItem currentItem) {
+
 				invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
 				invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
 				invoUI.itemHealingValue.setText("Heals:" + currentItem.getHealingValue());
@@ -70,6 +72,7 @@ public class InventoryHandler implements ActionListener, MouseListener {
 				invoUI.itemLabel.setVisible(true);
 				invoUI.useItemButton.setVisible(true);
 				invoUI.closeItemButton.setVisible(true);
+				ui.masterPlayerPanel.remove(shopKeeperUI.shopKeeperItemInfoPanel);
 				ui.RemoveOutputTextPanelAddInfoPanel();
 
 				isShopOpenSetUI("Use:", "useItem");
@@ -82,19 +85,20 @@ public class InventoryHandler implements ActionListener, MouseListener {
 				invoUI.itemLabel.setText("Item:" + player.inventoryItems[index].getName());
 				invoUI.itemPriceLabel.setText("Price:" + player.inventoryItems[index].getPrice());
 
-				// Display damage or armor based on item index
-				if (player.inventoryItems[index].getItemIndex() == 0) {
-					invoUI.equipmentDamageOrArmorValue.setText("Damage:" + player.inventoryItems[index].getDamageValue());
-				} else if (player.inventoryItems[index].getItemIndex() == 1) {
-					invoUI.equipmentDamageOrArmorValue.setText("Armor:" + player.inventoryItems[index].getArmorValue());
+				// Display damage or armor based on item type
+				if (player.inventoryItems[index] instanceof WeaponItem currentItem) {
+					invoUI.equipmentDamageOrArmorValue.setText("Damage:" + currentItem.getDamageValue());
+				} else if (player.inventoryItems[index] instanceof ArmourItem currentItem) {
+					invoUI.equipmentDamageOrArmorValue.setText("Armor:" + currentItem.getArmorValue());
 				}
 
 				invoUI.equipmentDamageOrArmorValue.setVisible(true);
 				invoUI.itemPriceLabel.setVisible(true);
 				invoUI.itemLabel.setVisible(true);
-				invoUI.itemHealingValue.setVisible(false);
+				//invoUI.itemHealingValue.setVisible(false);
 				invoUI.useItemButton.setVisible(true);
 				invoUI.closeItemButton.setVisible(true);
+				ui.masterPlayerPanel.remove(shopKeeperUI.shopKeeperItemInfoPanel);
 				ui.RemoveOutputTextPanelAddInfoPanel();
 
 				isShopOpenSetUI("Equip:", "equipItem");
@@ -154,7 +158,9 @@ public class InventoryHandler implements ActionListener, MouseListener {
 			System.out.println("exiting inventory");
 			invoUI.inventoryButton.setActionCommand("inventoryButton");
 			invoUI.CloseInventoryUIAbsolute();
-	        
+
+
+			ui.button1.setVisible(true);
 			ui.buttonPanel.setVisible(true);
 			player.setInventoryStatus("close");
 			ui.button4.setVisible(false);
@@ -219,16 +225,16 @@ public class InventoryHandler implements ActionListener, MouseListener {
 				System.out.println("Attempting to use item...");
 				// Check if index is valid
 				if (player.getPlayerItemIndex() != -1) {// Call itemUsed only if index is valid
-					if (player.inventoryItems[player.getPlayerItemIndex()] instanceof SuperConsumable consumableItem && consumableItem.getHealingValue() > 0){
+					if (player.inventoryItems[player.getPlayerItemIndex()] instanceof ConsumableItem consumableItem && consumableItem.getHealingValue() > 0){
 
 						ui.updateGameTextOutputArea("Player used: " + consumableItem.getName() + " +"
-													+ consumableItem.getHealingValue() + consumableItem.getConsumableType());
+													+ consumableItem.getHealingValue() + consumableItem.getType());
 						ui.RemoveInfoPanelAddOutputTextPanel();
 					}
-					else if (player.inventoryItems[player.getPlayerItemIndex()] instanceof SuperConsumable consumableItem && consumableItem.getHealingValue() < 0) {
+					else if (player.inventoryItems[player.getPlayerItemIndex()] instanceof ConsumableItem consumableItem && consumableItem.getHealingValue() < 0) {
 
 						ui.updateGameTextOutputArea("Player used: " + consumableItem.getName() +" "
-													+ consumableItem.getHealingValue() + consumableItem.getConsumableType());
+													+ consumableItem.getHealingValue() + consumableItem.getType());
 						ui.RemoveInfoPanelAddOutputTextPanel();
 					}
 					System.out.println("Player used item from inventory index: " + player.getPlayerItemIndex()); // Print index for debugging
@@ -310,18 +316,18 @@ public class InventoryHandler implements ActionListener, MouseListener {
     	   
     	   System.out.println("Attempting to inspect weapon...");
     	  		   
-    	   if (player.equippedItems[0].getEquipmentType().equals("Weapon")){
+    	   if (player.equippedItems[0].getType().equals("Equipment")){
 
 			   ui.RemoveOutputTextPanelAddInfoPanel();
 
 			   invoUI.itemLabel.setText("Item:" + player.equippedItems[0].getName());
 			   invoUI.itemPriceLabel.setText("Price:" + player.equippedItems[0].getPrice());
 			   invoUI.equipmentDamageOrArmorValue.setVisible(true);
-			   invoUI.equipmentDamageOrArmorValue.setText("Damage:" + player.equippedItems[0].getDamageValue());
+			   invoUI.equipmentDamageOrArmorValue.setText("Damage:" + player.getCurrentWeapon().getDamageValue());
 
 			   invoUI.itemPriceLabel.setVisible(true);
 			   invoUI.itemLabel.setVisible(true);
-			   invoUI.itemHealingValue.setVisible(false);
+			   //invoUI.itemHealingValue.setVisible(false);
 			   invoUI.useItemButton.setText("Unequip:");
 			   invoUI.useItemButton.setActionCommand("unEquipItem");
 			   invoUI.useItemButton.setVisible(true);
@@ -345,14 +351,14 @@ public class InventoryHandler implements ActionListener, MouseListener {
     	   
     	   System.out.println("Attempting to inspect armor...");
     	  		   
-    	   if (player.equippedItems[1].getEquipmentType().equals("Armor")){
+    	   if (player.equippedItems[1].getType().equals("Equipment")){
     		ui.RemoveOutputTextPanelAddInfoPanel();
 
 			   invoUI.itemLabel.setText("Item:" + player.equippedItems[1].getName());
 			   invoUI.itemPriceLabel.setText("Price:" + player.equippedItems[1].getPrice());
 
 			   invoUI.equipmentDamageOrArmorValue.setVisible(true);
-			   invoUI.equipmentDamageOrArmorValue.setText("Armor:" + player.equippedItems[1].getArmorValue());
+			   invoUI.equipmentDamageOrArmorValue.setText("Armor:" + player.getCurrentArmor().getArmorValue());
 			   invoUI.itemPriceLabel.setVisible(true);
 			   invoUI.itemLabel.setVisible(true);
 			   invoUI.itemHealingValue.setVisible(false);

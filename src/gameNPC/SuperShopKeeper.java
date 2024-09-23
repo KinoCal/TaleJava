@@ -1,5 +1,6 @@
 package gameNPC;
 
+import gameItems.abstractClasses.Item;
 import gameUI.UI;
 import main.Game;
 import main.Player;
@@ -7,9 +8,10 @@ import main.Player;
 import javax.swing.*;
 
 public class SuperShopKeeper {
-    private SuperItem[] shopItems = new SuperItem[5];
+    private Item[] shopItems = new Item[5];
     public JButton shopKeeperButton;
     private String shopKeeperName;
+
 
     protected Player player;
     protected UI ui;
@@ -23,7 +25,7 @@ public class SuperShopKeeper {
 
 
 
-    public void AddItemToShop(int index, SuperItem item) {
+    public void AddItemToShop(int index, Item item) {
         if (index >= 0 && index < shopItems.length) {
             shopItems[index] = item;
         } else {
@@ -32,16 +34,16 @@ public class SuperShopKeeper {
         }
     }
 
-    public String SellMessage(SuperItem item) {
+    public String SellMessage(Item item) {
         String string = "Item Bought: " + item.getName() + " -" + item.getPrice() + "gold";
         return string;
     }
 
-    public SuperItem getShopItems(int i) {
+    public Item getShopItems(int i) {
         return shopItems[i];
     }
 
-    public void setShopItems(SuperItem[] shopItems) {
+    public void setShopItems(Item[] shopItems) {
         this.shopItems = shopItems;
     }
 

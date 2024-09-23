@@ -4,6 +4,7 @@ package main;
 import Factories.ItemFactories.Factories;
 import GameStates.GameState;
 import gameItems.abstractClasses.Item;
+import gameItems.conreteClasses.Consumables.ConsumableItem;
 import gameItems.conreteClasses.equipment.ArmourItem;
 import gameItems.conreteClasses.equipment.WeaponItem;
 import gameItems.interfaces.Item_Empty;
@@ -40,11 +41,14 @@ public class Player {
     private int playerInventoryIndex;
     private int shopItemIndex;
 	public Item empty = new Item_Empty();
+    public Item emptyWeapon = new WeaponItem(0,"Empty", "Empty", 0, 0);
+    public Item emptyArmour = new ArmourItem(0,"Empty", "Empty", 0, 0);
     public WeaponItem dagger = factory.createWeapon("Dagger");
+    public WeaponItem sword = factory.createWeapon("Sword");
     public ArmourItem clothBody = factory.createArmour("ClothBody");
 
-    public Item hpPotion = factory.createConsumable("HpPotion");
-    public Item mpPotion = factory.createConsumable("MpPotion");
+    public ConsumableItem hpPotion = factory.createConsumable("HpPotion");
+    public ConsumableItem mpPotion = factory.createConsumable("MpPotion");
 
     public Item[] equippedItems = new Item[3];
 	public Item[] inventoryItems = new Item[5];
@@ -55,17 +59,17 @@ public class Player {
     public Player( Game game) {
     	this.game = game;
 
-        equippedItems[0] = empty;
-        equippedItems[1] = empty;
-        equippedItems[2] = empty;
+        equippedItems[0] = emptyWeapon;
+        equippedItems[1] = emptyArmour;
+
 
         hpPotionArray.add(hpPotion);
         mpPotionArray.add(mpPotion);
 
         inventoryItems[0] = clothBody;
         inventoryItems[1] = dagger;
-        inventoryItems[2] = empty;
-        inventoryItems[3] = empty;
+        inventoryItems[2] = dagger;
+        inventoryItems[3] = sword;
         inventoryItems[4] = empty;
 
         currentWeapon = (WeaponItem) equippedItems[0];
@@ -268,25 +272,25 @@ public class Player {
 
 
 
-	public Item getCurrentWeapon() {
+	public WeaponItem getCurrentWeapon() {
 		return currentWeapon;
 	}
 
 
 
-	public void setCurrentWeapon(Item currentWeapon) {
-		this.currentWeapon = (WeaponItem) currentWeapon;
+	public void setCurrentWeapon(WeaponItem currentWeapon) {
+		this.currentWeapon = currentWeapon;
 	}
 
 
 
-	public Item getCurrentArmor() {
+	public ArmourItem getCurrentArmor() {
 		return currentArmor;
 	}
 
 
 
-	public void setCurrentArmor(Item currentArmor) {
+	public void setCurrentArmor(ArmourItem currentArmor) {
 		this.currentArmor = (ArmourItem) currentArmor;
 	}
 

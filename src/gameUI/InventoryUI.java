@@ -118,11 +118,12 @@ public class InventoryUI {
         itemPriceLabel.setFont(ui.statsFont);
         ui.infoPanel.add(itemPriceLabel);
 
-        itemHealingValue = new JLabel();
+        /*itemHealingValue = new JLabel();
         itemHealingValue.setForeground(Color.white);
         itemHealingValue.setVisible(false);
         itemHealingValue.setFont(ui.statsFont);
         ui.infoPanel.add(itemHealingValue);
+         */
 
         equipmentDamageOrArmorValue = new JLabel();
         equipmentDamageOrArmorValue.setForeground(Color.white);
@@ -232,7 +233,7 @@ public class InventoryUI {
     }
 
     public void CloseInventoryUI() {
-        itemHealingValue.setVisible(false);
+        //itemHealingValue.setVisible(false);
         itemPriceLabel.setVisible(false);
         itemLabel.setVisible(false); // Hide item label after using the item
         equipmentDamageOrArmorValue.setVisible(false);
@@ -248,7 +249,7 @@ public class InventoryUI {
         equipmentPanel.setVisible(false);
         equipmentStatsPanel.setVisible(false);
 
-        itemHealingValue.setVisible(false);
+        //itemHealingValue.setVisible(false);
         itemPriceLabel.setVisible(false);
         itemLabel.setVisible(false); // Hide item label after closing inventory
         equipmentDamageOrArmorValue.setVisible(false);

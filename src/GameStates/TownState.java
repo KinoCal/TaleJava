@@ -28,6 +28,8 @@ public class TownState extends GameState{
     @Override
     public void ui() {
         // Update the player's game screen and UI
+        ui.removeButtonListeners();
+        //ui.button1.removeActionListener(game.shopKeeperHandler);
         ui.button1.addActionListener(game.shopKeeperHandler);
         ui.button1.setActionCommand("ShopKeeperButton");
         ui.button1.setText("Tavern");
@@ -51,7 +53,7 @@ public class TownState extends GameState{
         invoUI.equipmentPanel.setVisible(false);
         invoUI.equipmentStatsPanel.setVisible(false);
         invoUI.inventoryPanel.setVisible(false);
-        invoUI.itemHealingValue.setVisible(false);
+        //invoUI.itemHealingValue.setVisible(false);
         invoUI.itemPriceLabel.setVisible(false);
         invoUI.itemLabel.setVisible(false); // Hide item label after using the item
         invoUI.equipmentDamageOrArmorValue.setVisible(false);

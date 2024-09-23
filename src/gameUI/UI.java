@@ -8,6 +8,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class UI implements ActionListener {
@@ -23,7 +24,7 @@ public class UI implements ActionListener {
 	public Border whiteline = BorderFactory.createLineBorder(Color.white);
 	public Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	public Font normalFont = new Font("Times New Roman", Font.PLAIN, 25);
-	public Font statsFont = new Font("Times New Roman", Font.PLAIN, 25);
+	public Font statsFont = new Font("Times New Roman", Font.PLAIN, 20);
 	public Font gameOutputFont = new Font("Italic", Font.ITALIC, 20);
 
 
@@ -51,6 +52,7 @@ public class UI implements ActionListener {
 	public Player player;
 	public Game game;
 	public JScrollPane scrollPane;
+	public ArrayList<JButton> buttonList = new ArrayList<>();
 	public UI (Player player, Game game) {
 		this.player = player;
 		this.game = game;
@@ -198,12 +200,14 @@ public class UI implements ActionListener {
 		button4.addActionListener(null);
 		buttonPanel.add(button4);
 
+
+
 		// INFO PANEL ON THE BOTTOM RIGHT
 		infoPanel = new JPanel();
 		infoPanel.setPreferredSize(new Dimension(237, 130)); // reduced size to accommodate space for mappanel
 		infoPanel.setBackground(Color.black);
 		infoPanel.setBorder(whiteline);
-		infoPanel.setLayout(new GridLayout(4,2));
+		infoPanel.setLayout(new GridLayout(6,1));
 		masterPlayerPanel.add(infoPanel);
 
 		// MAIN PANEL THAT TAKES UP THE REST OF THE SCREEN
@@ -278,8 +282,24 @@ public class UI implements ActionListener {
 		infoPanel.setVisible(true);
 		frame.setVisible(true);
 
+		buttonList.add(button1);
+		buttonList.add(button2);
+		buttonList.add(button3);
+		//buttonList.add(button4);
+
 	}
 
+	public void removeButtonListeners() {
+		for (JButton button : buttonList) {  // Use enhanced for loop
+			// Get all action listeners for each button
+			ActionListener[] listeners = button.getActionListeners();
+
+			// Remove each listener
+			for (ActionListener listener : listeners) {
+				button.removeActionListener(listener);
+			}
+		}
+	}
 
 	// Inside the class where you toggle the visibility of mainGraphicsPanel
 // Assuming you have a method like toggleMainGraphicsPanelVisibility()
@@ -345,7 +365,7 @@ public class UI implements ActionListener {
 			// Process the input text as needed
 
 			if (inputText.equals("::getx")){
-				System.out.println(player.getPlayerX());
+				System.out.println(player.getCurrentArmor());
 				// Example: Update the game text output area with the input text
 				updateGameTextOutputArea("Input received: " + inputText);
 				System.out.println(inputText);

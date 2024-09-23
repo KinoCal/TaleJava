@@ -1,5 +1,6 @@
 package gameNPC;
 
+import Factories.ItemFactories.Factories;
 import gameUI.UI;
 import main.Game;
 import main.Player;
@@ -8,20 +9,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TavernShopKeeper extends SuperShopKeeper {
-
-	private Item_Hp_Potion potion = new Item_Hp_Potion();
-	private Weapon_Dagger dagger = new Weapon_Dagger();
-	private Item_Mp_Potion mpPotion = new Item_Mp_Potion();
 	
-	
-	
+	Factories factories = new Factories();
 	public TavernShopKeeper(Game game, Player player, UI ui) {
         super(game,player,ui);
 
         setShopKeeperName("tavernShop");
 
-		AddItemToShop(0,potion);
-		AddItemToShop(1,mpPotion);
+		AddItemToShop(0,factories.createConsumable("HpPotion"));
+		AddItemToShop(1,factories.createConsumable("MpPotion"));
 		//AddItemToShop(2,potion);
 		//AddItemToShop(3,potion);
 		//AddItemToShop(4,potion);

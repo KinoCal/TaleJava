@@ -20,6 +20,7 @@ public class ShopKeeperUI {
     public JButton closeItemButton;
     public JPanel shopKeeperPanel;
     public JLabel shopNameLabel;
+    public JPanel shopKeeperItemInfoPanel;
 
     public ShopKeeperUI(Game game, Player player, UI ui, InventoryUI invoUI){
         this.game = game;
@@ -60,29 +61,36 @@ public class ShopKeeperUI {
         shopButtons[1].setVisible(true);
         shopKeeperPanel.add(shopButtons[1]);
 
+        shopKeeperItemInfoPanel = new JPanel();
+        shopKeeperItemInfoPanel.setPreferredSize(new Dimension(237, 130)); // reduced size to accommodate space for mappanel
+        shopKeeperItemInfoPanel.setBackground(Color.black);
+        shopKeeperItemInfoPanel.setBorder(ui.whiteline);
+        shopKeeperItemInfoPanel.setLayout(new GridLayout(5,1));
+        //ui.masterPlayerPanel.add(shopKeeperItemInfoPanel);
+
         itemLabel = new JLabel();
         itemLabel.setForeground(Color.white);
         itemLabel.setVisible(false);
         itemLabel.setFont(ui.statsFont);
-        ui.infoPanel.add(itemLabel);
+        shopKeeperItemInfoPanel.add(itemLabel);
 
         itemShopPriceLabel = new JLabel();
         itemShopPriceLabel.setForeground(Color.white);
         itemShopPriceLabel.setVisible(false);
         itemShopPriceLabel.setFont(ui.statsFont);
-        ui.infoPanel.add(itemShopPriceLabel);
+        shopKeeperItemInfoPanel.add(itemShopPriceLabel);
 
         itemHealingValue = new JLabel();
         itemHealingValue.setForeground(Color.white);
         itemHealingValue.setVisible(false);
         itemHealingValue.setFont(ui.statsFont);
-        ui.infoPanel.add(itemHealingValue);
+        shopKeeperItemInfoPanel.add(itemHealingValue);
 
         equipmentDamageOrArmorValue = new JLabel();
         equipmentDamageOrArmorValue.setForeground(Color.white);
         equipmentDamageOrArmorValue.setVisible(false);
         equipmentDamageOrArmorValue.setFont(ui.statsFont);
-        ui.infoPanel.add(equipmentDamageOrArmorValue);
+        shopKeeperItemInfoPanel.add(equipmentDamageOrArmorValue);
 
         buyItemButton = new JButton();
         buyItemButton.setBackground(Color.black);
@@ -91,7 +99,7 @@ public class ShopKeeperUI {
         buyItemButton.setFocusPainted(false);
         buyItemButton.setActionCommand("buyItem");
         buyItemButton.setVisible(false);
-        ui.infoPanel.add(buyItemButton);
+        shopKeeperItemInfoPanel.add(buyItemButton);
 
         closeItemButton = new JButton("Close");
         closeItemButton.setBackground(Color.black);
@@ -100,10 +108,28 @@ public class ShopKeeperUI {
         closeItemButton.setFocusPainted(false);
         closeItemButton.setActionCommand("closeItem");
         closeItemButton.setVisible(false);
-        ui.infoPanel.add(closeItemButton);
+        shopKeeperItemInfoPanel.add(closeItemButton);
 
 
 
+    }
+
+    public void RemoveInfoPanelAddShopKeeperItemInfoPanel(){
+        ui.masterPlayerPanel.remove(ui.infoPanel);
+        ui.masterPlayerPanel.add(shopKeeperItemInfoPanel);
+        ui.masterPlayerPanel.repaint();
+    }
+
+    public void RemoveShopKeeperItemInfoPanelAddInfoPanel(){
+        ui.masterPlayerPanel.remove(shopKeeperItemInfoPanel);
+        ui.masterPlayerPanel.add(ui.infoPanel);
+        ui.masterPlayerPanel.repaint();
+    }
+
+    public void RemoveShopKeeperItemInfoPanelAddOutputTextPanel(){
+        ui.masterPlayerPanel.remove(shopKeeperItemInfoPanel);
+        ui.masterPlayerPanel.add(ui.gameOutputTextPanel);
+        ui.masterPlayerPanel.repaint();
     }
 
     public void CloseShopItemInfoUI() {

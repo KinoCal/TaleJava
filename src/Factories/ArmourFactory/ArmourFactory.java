@@ -7,7 +7,7 @@ public class ArmourFactory {
 
     public ArmourItem createItem(String itemName) {
         return switch (itemName) {
-            case "ClothBody" -> new ArmourItem("Cloth Body", "Armour", 2, 1);
+            case "ClothBody" -> new ArmourItem(1, "Cloth Body", "Equipment", 2, 1);
             default -> throw new IllegalArgumentException("Unknown item type: " + itemName);
         };
     }

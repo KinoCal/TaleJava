@@ -2,6 +2,10 @@ package gameHandlers;
 
 
 import gameItems.abstractClasses.Item;
+import gameItems.conreteClasses.Consumables.ConsumableItem;
+import gameItems.conreteClasses.equipment.ArmourItem;
+import gameItems.conreteClasses.equipment.EmptyWeapon;
+import gameItems.conreteClasses.equipment.WeaponItem;
 import main.Player;
 
 public class InventoryManager {
@@ -64,7 +68,7 @@ public class InventoryManager {
 		return itemSold;
 	}
 	
-	public boolean SellItemToShop(Player player, SuperItem item) {
+	public boolean SellItemToShop(Player player, Item item) {
 
 		boolean itemSold;
 
@@ -84,9 +88,9 @@ public class InventoryManager {
 
 	public void itemUsed(int slotNumber, Player player) {
 		//set the item used = to a temporary SuperItem variable
-		SuperItem currentItem = player.inventoryItems[slotNumber];
+		Item currentItem = player.inventoryItems[slotNumber];
 		//check to see if the current item used is a Consumable
-		if(currentItem instanceof SuperConsumable consumableItem) {
+		if(currentItem instanceof ConsumableItem consumableItem) {
 			System.out.println("Player used item: " + consumableItem.getName());
 			player.healPlayer(consumableItem.getHealingValue());
 			player.inventoryItems[slotNumber] = player.empty;
@@ -101,14 +105,20 @@ public class InventoryManager {
 		// Check if the slotNumber is valid
 		if (slotNumber >= 0 && slotNumber < player.equippedItems.length) {
 			//set the item used = to a temporary currentItem variable
-			SuperItem currentItem = player.inventoryItems[player.getPlayerItemIndex()];
+			Item currentItem = player.inventoryItems[player.getPlayerItemIndex()];
+
+			if (player.equippedItems[currentItem.getItemIndex()] == player.emptyWeapon || player.equippedItems[currentItem.getItemIndex()] == player.emptyArmour){
+				player.inventoryItems[player.getPlayerItemIndex()] = player.empty;
+			} else {
 
 				player.inventoryItems[player.getPlayerItemIndex()] = player.equippedItems[currentItem.getItemIndex()];
+			}
+
 				player.equippedItems[currentItem.getItemIndex()] = currentItem;
-				player.setCurrentWeapon(player.equippedItems[0]);
-				player.setCurrentArmor(player.equippedItems[1]);
-				player.setDamage(player.equippedItems[0].getDamageValue());
-				player.setArmor(player.equippedItems[1].getArmorValue());
+				player.setCurrentWeapon((WeaponItem) player.equippedItems[0]);
+				player.setCurrentArmor((ArmourItem) player.equippedItems[1]);
+				player.setDamage(player.getCurrentWeapon().getDamageValue());
+				player.setArmor(player.getCurrentArmor().getArmorValue());
 
 			}
 			else {
@@ -119,30 +129,41 @@ public class InventoryManager {
 
 
 
-	public void UnEquipItem(Player player, SuperItem item) {
+	public void UnEquipItem(Player player, Item item) {
 
 		int slotNumber = 0;
 		while(player.inventoryItems[slotNumber] != player.empty && slotNumber <4) {
 			slotNumber++;
 		}
 		if(player.inventoryItems[slotNumber] == player.empty) {
+			if(player.equippedItems[item.getItemIndex()]==player.emptyWeapon || player.equippedItems[item.getItemIndex()]==player.emptyArmour){
+				player.inventoryItems[slotNumber] = player.empty;
+			}else {
 			player.inventoryItems[slotNumber] = player.equippedItems[item.getItemIndex()];
-			player.equippedItems[item.getItemIndex()] = player.empty;
 
+			}
 
-			player.setCurrentWeapon(player.equippedItems[0]);
-			player.setCurrentArmor(player.equippedItems[1]);
-			player.setDamage(player.equippedItems[0].getDamageValue());
-			player.setArmor(player.equippedItems[1].getArmorValue());
+			if (item instanceof WeaponItem){
+				player.equippedItems[item.getItemIndex()] = player.emptyWeapon;
+
+			}
+			if (item instanceof ArmourItem){
+				player.equippedItems[item.getItemIndex()] = player.emptyArmour;
+			}
+
+			player.setCurrentWeapon((WeaponItem) player.equippedItems[0]);
+			player.setCurrentArmor((ArmourItem) player.equippedItems[1]);
+			player.setDamage(player.getCurrentWeapon().getDamageValue());
+			player.setArmor(player.getCurrentArmor().getArmorValue());
 
 		}
 		else if(player.inventoryItems[slotNumber] != player.empty) {
 			System.out.println("player inventory is full");
 		}
 	}
-	
 
-	
+
+
 	public boolean IsInventoryFull(Player player) {
 		
 		int slotNumber = 0;
