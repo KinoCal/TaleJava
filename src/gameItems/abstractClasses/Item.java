@@ -6,18 +6,36 @@ public abstract class Item implements gameItems.interfaces.Item {
     private String name;
     private String type;
     private int price;
+    private int quantity;
 
-    public Item( int itemIndex, String name, String type, int price){
+    public Item( int itemIndex, String name, String type, int price, int quantity){
         this.itemIndex = itemIndex;
         this.name = name;
         this.type = type;
         this.price = price;
+        this.quantity = quantity;
     }
     public Item(){
 
     }
 
+    @Override
+    public String ToString(){
 
+        return this.name + " " + "(" + this.quantity + ")";
+    }
+
+    public void increaseQuantity(int amount){
+        this.quantity += amount;
+    }
+    @Override
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     @Override
     public int getItemIndex(){return itemIndex;}
     @Override

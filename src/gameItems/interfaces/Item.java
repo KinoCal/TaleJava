@@ -7,4 +7,10 @@ public interface Item {
     String getType();
     int getPrice();
 
+    String ToString();
+
+    int getQuantity();
+    int setQuantity();
+    int increaseQuantity();
+
 }

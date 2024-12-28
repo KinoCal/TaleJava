@@ -11,7 +11,7 @@ public class ShopKeeperUI {
     public Player player;
     public UI ui;
     public InventoryUI invoUI;
-    public JButton[] shopButtons = new JButton[2];
+    public JButton[] shopButtons = new JButton[3];
     public JLabel itemLabel;
     public JLabel itemShopPriceLabel;
     public JLabel itemHealingValue;
@@ -60,6 +60,15 @@ public class ShopKeeperUI {
         shopButtons[1].setActionCommand("button1");
         shopButtons[1].setVisible(true);
         shopKeeperPanel.add(shopButtons[1]);
+
+        shopButtons[2] = new JButton();
+        shopButtons[2].setBackground(Color.black);
+        shopButtons[2].setForeground(Color.white);
+        shopButtons[2].setFont(ui.normalFont);
+        shopButtons[2].setFocusPainted(false);
+        shopButtons[2].setActionCommand("button2");
+        shopButtons[2].setVisible(true);
+        shopKeeperPanel.add(shopButtons[2]);
 
         shopKeeperItemInfoPanel = new JPanel();
         shopKeeperItemInfoPanel.setPreferredSize(new Dimension(237, 130)); // reduced size to accommodate space for mappanel

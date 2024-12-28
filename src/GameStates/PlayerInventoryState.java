@@ -43,6 +43,7 @@ public class PlayerInventoryState extends GameState {
 		ui.button4.addActionListener(iHandler);
 		ui.button4.setText("exitInventory");
 		ui.button4.setActionCommand("exitInventory");
+		game.playerStatsUI.playerStatsScreenButton.setEnabled(false);
 		
 	}
 

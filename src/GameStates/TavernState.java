@@ -73,6 +73,10 @@ public class TavernState extends GameState implements ActionListener {
 
 		switch (yourChoice){
 			case"closeTavern":
+				shopKeeperUI.CloseShopItemInfoUI();
+				shopKeeperUI.RemoveShopKeeperItemInfoPanelAddOutputTextPanel();
+				invoUI.CloseInventoryUI();
+
 				shopKeeperUI.shopKeeperPanel.setVisible(false);
 				goBackToPreviousState(player);
 				ui.button1.setVisible(true);

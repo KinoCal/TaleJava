@@ -95,7 +95,7 @@ public class InventoryHandler implements ActionListener, MouseListener {
 				invoUI.equipmentDamageOrArmorValue.setVisible(true);
 				invoUI.itemPriceLabel.setVisible(true);
 				invoUI.itemLabel.setVisible(true);
-				//invoUI.itemHealingValue.setVisible(false);
+				invoUI.itemHealingValue.setVisible(false);
 				invoUI.useItemButton.setVisible(true);
 				invoUI.closeItemButton.setVisible(true);
 				ui.masterPlayerPanel.remove(shopKeeperUI.shopKeeperItemInfoPanel);
@@ -164,8 +164,9 @@ public class InventoryHandler implements ActionListener, MouseListener {
 			ui.buttonPanel.setVisible(true);
 			player.setInventoryStatus("close");
 			ui.button4.setVisible(false);
-			
-			
+
+			game.playerStatsUI.playerStatsScreenButton.setEnabled(true);
+
 			GameState.goBackToPreviousState(player);
 			System.out.println("Exited inventory case*");
 			

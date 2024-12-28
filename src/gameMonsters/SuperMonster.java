@@ -1,63 +1,44 @@
 package gameMonsters;
 
-import gameUI.UI;
-import main.Game;
-import main.Player;
+import Factories.ItemFactories.Factories;
+import gameItems.abstractClasses.Item;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class SuperMonster {
 
 	private String name;
-	private int hp;
+	private int level;
+	private int currentHp;
 	private int maxHp;
 	private int monsterDamage;
-
-	public JLabel monsterLabel;
-	protected Player player;
-	protected UI ui;
-	protected Game game;
 	private int monsterGold;
+	private ArrayList<Item> lootTable = new ArrayList<>();
+	private Factories factories = new Factories();
 
-	public SuperMonster(Game game, Player player, UI ui) {
-		this.game = game;
-		this.player = player;
-		this.ui = ui;
-	}
+	public SuperMonster() {
 
-	public void DropLoot() {
-		player.setGold(this.monsterGold);
-		ui.goldLabel.setText(" Gold: " + player.getGold());
 	}
 
 	public void HurtMonster(int damage){
-		this.hp = this.hp - damage;
+		this.currentHp = this.currentHp - damage;
 	}
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getHp() {
-		return hp;
+	public int getCurrentHp() {
+		return this.currentHp;
 	}
 
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-
-	public JLabel getMonsterLabel() {
-		return monsterLabel;
-	}
-
-	public void setMonsterLabel(JLabel monsterLabel) {
-		this.monsterLabel = monsterLabel;
+	public void setCurrentHp(int currentHp) {
+		this.currentHp = currentHp;
 	}
 
 	public int getMonsterDamage() {
@@ -69,7 +50,7 @@ public class SuperMonster {
 	}
 
 	public int getMaxHp() {
-		return maxHp;
+		return this.maxHp;
 	}
 
 	public void setMaxHp(int maxHp) {
@@ -77,12 +58,53 @@ public class SuperMonster {
 	}
 
 	public int getMonsterGold() {
-		return monsterGold;
+		return this.monsterGold;
 	}
 
 	public void setMonsterGold(int monsterGold) {
 		this.monsterGold = monsterGold;
 	}
 
-	// Other getters and setters...
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public ArrayList<Item> getLootTable() {
+        return lootTable;
+    }
+
+	public Item getLootTableItemAtIndex(int index){
+		Item lootTableItem = lootTable.get(index);
+		return lootTableItem;
+	}
+
+	public Item randomMonsterLoot() {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(10) + 1;
+        Item lootItem = null;
+
+        if (randomNumber < 3) {
+            lootItem = getLootTableItemAtIndex(0);
+			System.out.println(randomNumber);
+        } else if (randomNumber > 8) {
+			lootItem = getLootTableItemAtIndex(1);
+			System.out.println(randomNumber);
+		} else {
+			lootItem = getLootTableItemAtIndex(2);
+			System.out.println(randomNumber);
+		}
+
+
+		return lootItem;
+    }
+
+    public Factories getFactories() {
+        return factories;
+    }
+
+    // Other getters and setters...
 }

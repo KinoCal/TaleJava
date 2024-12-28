@@ -6,10 +6,12 @@ import gameItems.interfaces.Consumable;
 public class ConsumableItem extends Item implements Consumable {
     private int healingValue;
 
-    public ConsumableItem(int itemIndex, String name, String type, int price, int healingValue) {
-        super(itemIndex, name, type, price);
+    public ConsumableItem(int itemIndex, String name, String type, int price, int healingValue, int quantity) {
+        super(itemIndex, name, type, price, quantity);
         this.healingValue = healingValue;
     }
+
+
 
     @Override
     public int getHealingValue() {
@@ -22,4 +24,13 @@ public class ConsumableItem extends Item implements Consumable {
     }
 
 
+    @Override
+    public int setQuantity() {
+        return 0;
+    }
+
+    @Override
+    public int increaseQuantity() {
+        return 0;
+    }
 }

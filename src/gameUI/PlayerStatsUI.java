@@ -34,6 +34,7 @@ public class PlayerStatsUI {
         playerStatsScreenButton.setFont(ui.normalFont);
         playerStatsScreenButton.setFocusPainted(false);
         playerStatsScreenButton.setVisible(true);
+        playerStatsScreenButton.setBorderPainted(false);
         ui.playerPanel.add(playerStatsScreenButton);
 
         playerStrStatLabel = new JLabel(" Str: " + player.getStrengthStat() + "#");

@@ -17,9 +17,9 @@ public class TavernShopKeeper extends SuperShopKeeper {
         setShopKeeperName("tavernShop");
 
 		AddItemToShop(0,factories.createConsumable("HpPotion"));
-		AddItemToShop(1,factories.createConsumable("MpPotion"));
-		//AddItemToShop(2,potion);
-		//AddItemToShop(3,potion);
+		AddItemToShop(1,factories.createWeapon("Sword"));
+		AddItemToShop(2, factories.createArmour("ClothBody"));
+		AddItemToShop(3,factories.createWeapon("Dagger"));
 		//AddItemToShop(4,potion);
 
 

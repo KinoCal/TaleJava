@@ -10,4 +10,14 @@ public class EmptyArmour extends Item implements Armor {
     public int getArmorValue() {
         return 0;
     }
+
+    @Override
+    public int setQuantity() {
+        return 0;
+    }
+
+    @Override
+    public int increaseQuantity() {
+        return 0;
+    }
 }

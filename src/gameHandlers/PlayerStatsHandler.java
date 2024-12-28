@@ -1,5 +1,6 @@
 package gameHandlers;
 
+import GameStates.GameState;
 import gameUI.PlayerStatsUI;
 import gameUI.UI;
 import main.Game;
@@ -50,6 +51,10 @@ public class PlayerStatsHandler implements ActionListener {
                 break;
 
             case "exitStatsScreen":
+
+                game.invoUI.inventoryButton.setEnabled(true);
+                ui.button1.setVisible(true);
+                ui.button4.setVisible(false);
                 System.out.println("exited stats screen* " + getCurrentState());
                 goBackToPreviousState(player);
                 playerStatsUI.playerStatsScreenButton.setActionCommand("playerStatsButton");

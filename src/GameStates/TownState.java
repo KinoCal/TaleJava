@@ -1,17 +1,17 @@
 package GameStates;
 
+import gameMonsters.Monster_Goblin;
 import gameUI.InventoryUI;
 import gameUI.UI;
 import main.Game;
 import main.Player;
 
 public class TownState extends GameState{
-
+    Monster_Goblin goblin = new Monster_Goblin();
 
     public TownState(Game game, Player player, UI ui, InventoryUI invoUI) {
         super(game, player, ui, invoUI);
         setName("TownState");
-
 
         
     }
@@ -20,6 +20,7 @@ public class TownState extends GameState{
     public void update() {
     	System.out.println(GameState.getGameStateStack() + " GAME STATE STACK INSIDE TOWN STATE*");
         System.out.println(getGameStateStack().peek()+" inside townstate*");
+        System.out.println(goblin.randomMonsterLoot().getName());
 
         
 
@@ -28,6 +29,7 @@ public class TownState extends GameState{
     @Override
     public void ui() {
         // Update the player's game screen and UI
+
         ui.removeButtonListeners();
         //ui.button1.removeActionListener(game.shopKeeperHandler);
         ui.button1.addActionListener(game.shopKeeperHandler);

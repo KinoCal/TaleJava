@@ -41,8 +41,8 @@ public class Player {
     private int playerInventoryIndex;
     private int shopItemIndex;
 	public Item empty = new Item_Empty();
-    public Item emptyWeapon = new WeaponItem(0,"Empty", "Empty", 0, 0);
-    public Item emptyArmour = new ArmourItem(0,"Empty", "Empty", 0, 0);
+    public Item emptyWeapon = new WeaponItem(0,"", "Empty", 0, 0, 0);
+    public Item emptyArmour = new ArmourItem(1,"", "Empty", 0, 0, 0);
     public WeaponItem dagger = factory.createWeapon("Dagger");
     public WeaponItem sword = factory.createWeapon("Sword");
     public ArmourItem clothBody = factory.createArmour("ClothBody");
@@ -66,9 +66,9 @@ public class Player {
         hpPotionArray.add(hpPotion);
         mpPotionArray.add(mpPotion);
 
-        inventoryItems[0] = clothBody;
-        inventoryItems[1] = dagger;
-        inventoryItems[2] = dagger;
+        inventoryItems[0] = dagger;
+        inventoryItems[1] = clothBody;
+        inventoryItems[2] = empty;
         inventoryItems[3] = sword;
         inventoryItems[4] = empty;
 

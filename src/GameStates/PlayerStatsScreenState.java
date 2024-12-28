@@ -18,8 +18,7 @@ public class PlayerStatsScreenState extends GameState {
 	public void update() {
 		// TODO Auto-generated method stub
 		System.out.println(getGameStateStack() + "GAME STATE STACK INSIDE PLAYER STATS SCREEN STATE");
-		
-		playerStatsUI.playerStatsScreenButton.setVisible(true);
+
 		System.out.println("*Players Current GameState " + player.getCurrentState());
 		
 		System.out.println("*Made it inside playerStats if loop " + getCurrentState());
@@ -33,7 +32,8 @@ public class PlayerStatsScreenState extends GameState {
 	@Override
 	public void ui() {
 		// TODO Auto-generated method stub
-		
+
+		game.invoUI.inventoryButton.setEnabled(false);
 		ui.button1.setVisible(false);
 		ui.button4.setText("Exit");
 		ui.button4.setVisible(true);

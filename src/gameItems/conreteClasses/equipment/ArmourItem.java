@@ -6,8 +6,8 @@ import gameItems.interfaces.Armor;
 public class ArmourItem extends Item implements Armor {
     private int armourValue;
 
-    public ArmourItem(int itemIndex, String name, String type, int price, int armourValue) {
-        super(itemIndex, name, type, price);
+    public ArmourItem(int itemIndex, String name, String type, int price, int armourValue, int quantity) {
+        super(itemIndex, name, type, price, quantity);
         this.armourValue = armourValue;
     }
 
@@ -17,4 +17,13 @@ public class ArmourItem extends Item implements Armor {
     }
 
 
+    @Override
+    public int setQuantity() {
+        return 0;
+    }
+
+    @Override
+    public int increaseQuantity() {
+        return 0;
+    }
 }

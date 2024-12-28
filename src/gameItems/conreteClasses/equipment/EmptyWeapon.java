@@ -14,4 +14,14 @@ public class EmptyWeapon extends Item implements Weapon {
     public void setDamageValue(int damageValue) {
 
     }
+
+    @Override
+    public int setQuantity() {
+        return 0;
+    }
+
+    @Override
+    public int increaseQuantity() {
+        return 0;
+    }
 }

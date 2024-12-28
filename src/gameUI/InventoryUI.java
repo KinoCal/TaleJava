@@ -1,9 +1,13 @@
 package gameUI;
 
+import gameItems.abstractClasses.Item;
+import gameItems.interfaces.Item_Empty;
 import main.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InventoryUI {
     Player player;
@@ -100,12 +104,43 @@ public class InventoryUI {
         inventoryButtons[4].setActionCommand("item5");
         inventoryButtons[4].setName("inventoryButton5");
 
+/*
         inventoryPanel.add(inventoryButtons[0]);
         inventoryPanel.add(inventoryButtons[1]);
         inventoryPanel.add(inventoryButtons[2]);
         inventoryPanel.add(inventoryButtons[3]);
         inventoryPanel.add(inventoryButtons[4]);
 
+
+ */
+
+        // Create list model and populate it
+        DefaultListModel<Item> listModel = new DefaultListModel<>();
+        for (Item item : player.inventoryItems){
+            listModel.addElement(item);
+        }
+
+        // Create JList and set model
+        JList<Item> inventoryList = new JList<>(listModel);
+        inventoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Add a mouse listener for clicks
+        inventoryList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Double-click to use an item
+                    int index = inventoryList.locationToIndex(e.getPoint());
+                    Item selectedItem = listModel.get(index);
+                    System.out.println("Selected item: " + selectedItem.getName());
+                    // Perform action based on the item
+                    //useItem(selectedItem);
+                }
+            }
+        });
+
+        // Add list to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(inventoryList);
+        inventoryPanel.add(scrollPane);
         itemLabel = new JLabel();
         itemLabel.setForeground(Color.white);
         itemLabel.setVisible(false);
@@ -118,12 +153,12 @@ public class InventoryUI {
         itemPriceLabel.setFont(ui.statsFont);
         ui.infoPanel.add(itemPriceLabel);
 
-        /*itemHealingValue = new JLabel();
+        itemHealingValue = new JLabel();
         itemHealingValue.setForeground(Color.white);
         itemHealingValue.setVisible(false);
         itemHealingValue.setFont(ui.statsFont);
         ui.infoPanel.add(itemHealingValue);
-         */
+
 
         equipmentDamageOrArmorValue = new JLabel();
         equipmentDamageOrArmorValue.setForeground(Color.white);
@@ -229,7 +264,13 @@ public class InventoryUI {
 
     public void refreshInventoryButtons(){
         for (int i = 0; i < player.inventoryItems.length; i++)
-            inventoryButtons[i].setText(player.inventoryItems[i].getName());
+            if (player.inventoryItems[i] instanceof Item_Empty){
+                inventoryButtons[i].setText("");
+            }
+            else {
+                    inventoryButtons[i].setText(player.inventoryItems[i].ToString());
+
+            }
     }
 
     public void CloseInventoryUI() {

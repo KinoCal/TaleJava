@@ -8,7 +8,7 @@ import main.Player;
 import javax.swing.*;
 
 public class SuperShopKeeper {
-    private Item[] shopItems = new Item[5];
+    private Item[] shopItems = new Item[4];
     public JButton shopKeeperButton;
     private String shopKeeperName;
 

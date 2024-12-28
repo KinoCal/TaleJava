@@ -1,28 +1,18 @@
 package gameMonsters;
 
-import gameUI.UI;
-import main.Game;
-import main.Player;
-
-import javax.swing.*;
-import java.awt.*;
-
 public class Monster_Goblin extends SuperMonster{
-
-	public Monster_Goblin(Game game, Player player, UI ui, int x, int y, int origX, int origY) {
-		super(game, player, ui);
+	public Monster_Goblin() {
 
 		setName("Goblin");
-		setHp(10);
-		setMaxHp(5);
+		setLevel(2);
+		setCurrentHp(10);
+		setMaxHp(10);
 		setMonsterGold(2);
 		setMonsterDamage(1);
 
-		monsterLabel = new JLabel();
-		monsterLabel.setSize(25,50);
-		monsterLabel.setBackground(Color.blue);
-		monsterLabel.setOpaque(true);
-		monsterLabel.setVisible(true);
+		getLootTable().add(getFactories().createWeapon("Dagger"));
+		getLootTable().add(getFactories().createWeapon("Sword"));
+		getLootTable().add(getFactories().createConsumable("HpPotion"));
 
 
 	}
